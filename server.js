@@ -5,7 +5,9 @@ const result = require("dotenv").config();
 if (result.error) {
   console.error("Error loading .env file:", result.error);
 }
-
+// root/client/dist/assets/index-7a7d787c
+// root/client/dist/assets/index-6e60d137
+// root/client/dist/index.html
 const express = require("express");
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
@@ -59,13 +61,15 @@ const startApolloServer = async () => {
     res.status(405).json({ message: "GET method not allowed for this route." });
   });
 
-  if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../client/dist")));
+  // if (process.env.NODE_ENV === "production") {
+    // app.use(express.static(path.join(__dirname, "../client/dist")));
+    // app.use(express.static(path.join(__dirname, "dist")));
+    app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "./client/dist/index.html"));
     });
-  }
+  // }
   // Global error handling middleware
   // app.use((err, req, res, next) => {
   //   console.error(err.stack); // Log error stack trace to console

@@ -20,6 +20,6 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'client/dist', // Specify the output directory for the production build
+    outDir: './dist', // Specify the output directory for the production build
   }
 });
