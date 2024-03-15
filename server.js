@@ -12,12 +12,12 @@ const { expressMiddleware } = require("@apollo/server/express4");
 const path = require("path");
 const cors = require("cors");
 
-const db = require("./config/connection.js");
-const typeDefs = require("./graphql/schemas/typeDefs.js");
-const resolvers = require("./graphql/schemas/resolvers.js");
-const { authMiddleware } = require("./utils/authMiddleware.js");
-const generateCharacterSheetRouter = require("./api/generateCharacterSheet.js");
-const apiKeyRouter = require("./api/routes/openaiRoute.js");
+const db = require("./server/config/connection.js");
+const typeDefs = require("./server/graphql/schemas/typeDefs.js");
+const resolvers = require("./server/graphql/schemas/resolvers.js");
+const { authMiddleware } = require("./server/utils/authMiddleware.js");
+const generateCharacterSheetRouter = require("./server/api/generateCharacterSheet.js");
+const apiKeyRouter = require("./server/api/routes/openaiRoute.js");
 const { OpenAI } = require("openai");
 
 const openaiApiKey = process.env.OPENAI_API_KEY;
@@ -57,10 +57,6 @@ const startApolloServer = async () => {
   // GET route for generateCharacterSheet (handling not allowed method)
   app.get("/api/generateCharacterSheet", (req, res) => {
     res.status(405).json({ message: "GET method not allowed for this route." });
-  });
-
-  app.get("/", (req, res) => {
-    res.send("Welcome to the API server!");
   });
 
   if (process.env.NODE_ENV === "production") {

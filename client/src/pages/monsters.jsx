@@ -8,6 +8,8 @@ import { MainContainer, ChatContainer, MessageList, Message, MessageInput, Typin
 const API_KEY = "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";
 
 function Monsters() {
+  const { loading, error, data } = useQuery(GET_OPENAI_API_KEY); // Use the useQuery hook to fetch the API key
+
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -49,7 +51,7 @@ function Monsters() {
 
     const systemMessage = {
       role: "system",
-      content: "Speak like you are a master D&D player that creates character sheets for your friends."
+      content: "Speak like you are a master D&D player that creates monsters for your friends."
     }
 
     const apiRequestBody = {
@@ -83,22 +85,15 @@ function Monsters() {
     }
 
   return (
-    <div className="App">
-      <div style={{ position: "relative", width: "700px", height: "800px" }}>
-        <MainContainer>
-          <ChatContainer>
-            <MessageList
-              typingIndicator={typing ? <TypingIndicator content="ChatGPT is typing..." /> : null}
-            >
-              {messages.map((message, i) => {
-                return <Message key={i} model={message} />;
-              })}
-            </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
-          </ChatContainer>
-        </MainContainer>
+    <div className="container monsters-page">
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <h2>Monsters</h2>
+          <p>This is the Monsters page. You can view and manage your monsters here.</p>
+        </div>
       </div>
     </div>
   );
 }
+
 export default Monsters;
